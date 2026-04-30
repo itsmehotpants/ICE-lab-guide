@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IC Lab Exam — Complete Study Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap');
+
+  :root {
+    --bg: #0f0f13;
+    --card: #17171f;
+    --card2: #1e1e28;
+    --border: #2a2a38;
+    --accent1: #7c6af7;
+    --accent2: #f7a646;
+    --accent3: #4ecdc4;
+    --accent4: #f76c6c;
+    --accent5: #6cf7a0;
+    --text: #e8e8f0;
+    --muted: #7a7a9a;
+    --tag-bg: #23233a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    padding: 48px 32px 36px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '⚙️';
+    position: absolute; font-size: 200px; opacity: 0.04;
+    top: -40px; left: -40px; line-height: 1;
+  }
+  .header::after {
+    content: '🔥';
+    position: absolute; font-size: 180px; opacity: 0.04;
+    bottom: -40px; right: -20px; line-height: 1;
+  }
+  .header h1 {
+    font-size: 2.4rem; font-weight: 700; letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #fff 0%, var(--accent1) 60%, var(--accent3) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .header p { color: var(--muted); margin-top: 8px; font-size: 1rem; }
+  .exam-badge {
+    display: inline-block; margin-top: 16px;
+    background: var(--accent4); color: #fff;
+    padding: 6px 18px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.7} }
+
+  /* NAV */
+  .nav-bar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,15,19,0.95); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    overflow-x: auto; white-space: nowrap;
+    display: flex; gap: 4px; align-items: center;
+  }
+  .nav-bar a {
+    display: inline-block; padding: 12px 14px;
+    color: var(--muted); text-decoration: none; font-size: 0.8rem; font-weight: 600;
+    border-bottom: 2px solid transparent; transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .nav-bar a:hover { color: var(--text); border-bottom-color: var(--accent1); }
+
+  /* MAIN */
+  .main { max-width: 1100px; margin: 0 auto; padding: 32px 20px 80px; }
+
+  /* QUICK REFERENCE CARD */
+  .quick-ref {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px; margin-bottom: 40px;
+  }
+  .quick-ref h2 { font-size: 1.1rem; color: var(--accent2); margin-bottom: 16px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+  .exp-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px;
+  }
+  .exp-chip {
+    background: var(--tag-bg); border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 14px; font-size: 0.82rem; cursor: pointer;
+    transition: all 0.2s; display: flex; align-items: center; gap: 8px;
+  }
+  .exp-chip:hover { border-color: var(--accent1); color: #fff; transform: translateY(-1px); }
+  .exp-chip .num { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--accent1); font-weight: 600; }
+
+  /* EXPERIMENT CARD */
+  .exp-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; margin-bottom: 36px; overflow: hidden;
+    scroll-margin-top: 60px;
+  }
+  .exp-header {
+    padding: 22px 28px; display: flex; align-items: center; gap: 16px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer; user-select: none;
+  }
+  .exp-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem; font-weight: 600;
+    background: var(--accent1); color: #fff;
+    padding: 4px 10px; border-radius: 6px; flex-shrink: 0;
+  }
+  .exp-title { font-size: 1.15rem; font-weight: 700; flex: 1; }
+  .exp-toggle { color: var(--muted); font-size: 1.2rem; transition: transform 0.3s; }
+  .exp-toggle.open { transform: rotate(180deg); }
+
+  .exp-body { padding: 0 28px 28px; display: none; }
+  .exp-body.open { display: block; }
+
+  /* SECTIONS within card */
+  .section { margin-top: 22px; }
+  .section-title {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--accent3);
+    margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+  }
+  .section-title::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  /* STEPS */
+  .steps { list-style: none; }
+  .steps li {
+    display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start;
+  }
+  .step-num {
+    flex-shrink: 0; width: 24px; height: 24px;
+    background: var(--accent1); color: #fff; border-radius: 50%;
+    font-size: 0.7rem; font-weight: 700; display: grid; place-items: center;
+    font-family: 'JetBrains Mono', monospace; margin-top: 1px;
+  }
+  .steps li p { font-size: 0.92rem; }
+
+  /* FORMULA BOX */
+  .formula-box {
+    background: #12121a; border: 1px solid #2d2d4a;
+    border-left: 3px solid var(--accent2);
+    border-radius: 10px; padding: 14px 18px; margin: 10px 0;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.87rem; line-height: 1.8;
+  }
+  .formula-box .formula-label {
+    font-size: 0.68rem; font-weight: 600; color: var(--accent2);
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  /* VIVA */
+  .viva-list { list-style: none; }
+  .viva-item {
+    background: var(--card2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; cursor: pointer;
+  }
+  .viva-q { font-size: 0.9rem; font-weight: 600; display: flex; justify-content: space-between; }
+  .viva-q .icon { color: var(--accent2); transition: transform 0.3s; }
+  .viva-q .icon.open { transform: rotate(180deg); }
+  .viva-a {
+    margin-top: 10px; font-size: 0.87rem; color: var(--muted);
+    border-top: 1px solid var(--border); padding-top: 10px; display: none;
+    line-height: 1.7;
+  }
+  .viva-a.open { display: block; }
+
+  /* TIPS */
+  .tip-box {
+    background: #1a1f12; border: 1px solid #2a3a1a;
+    border-left: 3px solid var(--accent5);
+    border-radius: 10px; padding: 14px 18px; margin-top: 14px;
+  }
+  .tip-box .tip-label {
+    font-size: 0.68rem; font-weight: 700; color: var(--accent5);
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;
+  }
+  .tip-box p { font-size: 0.87rem; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 10px; }
+  th {
+    background: var(--tag-bg); color: var(--accent3);
+    padding: 8px 12px; text-align: left; font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  tr:hover td { background: var(--card2); }
+
+  /* HIGHLIGHT */
+  .highlight { color: var(--accent2); font-weight: 600; }
+  .tag {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 0.72rem; font-weight: 600; font-family: 'JetBrains Mono', monospace;
+  }
+  .tag-engine { background: #2a1f4a; color: var(--accent1); }
+  .tag-fuel { background: #2a1a10; color: var(--accent2); }
+  .tag-thermo { background: #0d2a2a; color: var(--accent3); }
+  .tag-bio { background: #1a2a12; color: var(--accent5); }
+
+  /* COLOR CODED ACCENTS per experiment group */
+  .col-engine .exp-num { background: var(--accent1); }
+  .col-fuel .exp-num { background: var(--accent2); }
+  .col-thermo .exp-num { background: var(--accent3); color: #000; }
+  .col-bio .exp-num { background: var(--accent5); color: #000; }
+
+  .mnemonic {
+    background: #1f1f2e; border: 1px dashed #3a3a5a;
+    border-radius: 10px; padding: 14px 18px; margin-top: 10px;
+  }
+  .mnemonic .mn-label {
+    font-size: 0.68rem; font-weight: 700; color: var(--accent1);
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;
+  }
+  .mnemonic p { font-size: 0.87rem; font-style: italic; }
+
+  ul.bullet { padding-left: 20px; }
+  ul.bullet li { margin-bottom: 6px; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🔧 IC Lab — Complete Exam Guide</h1>
+  <p>All 14 Experiments · Procedure · Calculations · Viva Q&A</p>
+  <div class="exam-badge">⚡ Exam-Day Ready</div>
+</div>
+
+<div class="nav-bar">
+  <a href="#exp1">1.Valve Timing</a>
+  <a href="#exp2">2.Diesel Dyno</a>
+  <a href="#exp3">3.Morse Test</a>
+  <a href="#exp4">4.VCR-CRDI</a>
+  <a href="#exp5">5.VCR Engine</a>
+  <a href="#exp6">6.Air Compressor</a>
+  <a href="#exp7">7.Redwood</a>
+  <a href="#exp8">8.Pycnometer</a>
+  <a href="#exp9">9.Cloud&Pour</a>
+  <a href="#exp10">10.Carbon Residue</a>
+  <a href="#exp11">11.Flash Point</a>
+  <a href="#exp12">12.Bomb Cal.</a>
+  <a href="#exp13">13.Torrefaction</a>
+  <a href="#exp14">14.Gasification</a>
+  <a href="#exp15">15.Biogas</a>
+</div>
+
+<div class="main">
+
+  <!-- QUICK REFERENCE -->
+  <div class="quick-ref">
+    <h2>📋 Experiment Quick Index — Click to Jump</h2>
+    <div class="exp-grid">
+      <div class="exp-chip" onclick="jumpTo('exp1')"><span class="num">01</span>Cut-Section / Valve Timing Diagram</div>
+      <div class="exp-chip" onclick="jumpTo('exp2')"><span class="num">02</span>4S Diesel Engine + Electrical Dyno</div>
+      <div class="exp-chip" onclick="jumpTo('exp3')"><span class="num">03</span>Petrol Engine — Morse Test</div>
+      <div class="exp-chip" onclick="jumpTo('exp4')"><span class="num">04</span>VCR CRDI Diesel (Mode Tests)</div>
+      <div class="exp-chip" onclick="jumpTo('exp5')"><span class="num">05</span>VCR Diesel — Different CR & Loads</div>
+      <div class="exp-chip" onclick="jumpTo('exp6')"><span class="num">06</span>Double Stage Air Compressor</div>
+      <div class="exp-chip" onclick="jumpTo('exp7')"><span class="num">07</span>Redwood Viscometer</div>
+      <div class="exp-chip" onclick="jumpTo('exp8')"><span class="num">08</span>Density by Pycnometer</div>
+      <div class="exp-chip" onclick="jumpTo('exp9')"><span class="num">09</span>Cloud &amp; Pour Point Apparatus</div>
+      <div class="exp-chip" onclick="jumpTo('exp10')"><span class="num">10</span>Rams Bottom Carbon Residue</div>
+      <div class="exp-chip" onclick="jumpTo('exp11')"><span class="num">11</span>Pensky-Martens Flash Point</div>
+      <div class="exp-chip" onclick="jumpTo('exp12')"><span class="num">12</span>Bomb Calorimeter</div>
+      <div class="exp-chip" onclick="jumpTo('exp13')"><span class="num">13</span>Torrefaction &amp; Pyrolysis</div>
+      <div class="exp-chip" onclick="jumpTo('exp14')"><span class="num">14</span>Gasification</div>
+      <div class="exp-chip" onclick="jumpTo('exp15')"><span class="num">15</span>Biogas Plant</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- EXP 1: VALVE TIMING -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="exp-card col-engine" id="exp1">
+    <div class="exp-header" onclick="toggle('exp1')">
+      <span class="exp-num">EXP 01</span>
+      <span class="exp-title">Cut-Section Model of 4-Stroke Diesel Engine — Valve Timing Diagram</span>
+      <span class="exp-toggle" id="exp1-toggle">▼</span>
+    </div>
+    <div class="exp-body" id="exp1-body">
+
+      <div class="section">
+        <div class="section-title">AIM & APPARATUS</div>
+        <p><strong>Aim:</strong> To draw the valve timing diagram for the given 4-stroke diesel engine.</p>
+        <br>
+        <p><strong>Apparatus:</strong> Measuring tape, Scale, Thread, Feeler gauge</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">THEORY — The Golden Formula</div>
+        <div class="formula-box">
+          <div class="formula-label">Required Angle Calculation</div>
+          <strong>Angle (°) = (Distance from Dead Centre × 360) / Circumference of Flywheel</strong><br><br>
+          where:<br>
+          • Distance = linear distance on flywheel from TDC or BDC mark to the event position<br>
+          • Circumference = measured using thread/measuring tape around flywheel
+        </div>
+        <div class="mnemonic">
+          <div class="mn-label">🧠 Easy Memory Trick</div>
+          <p>Think of the flywheel as a circle. You're converting a LENGTH on its rim into a DEGREE angle. It's just: <strong>"Fraction of circumference × 360°"</strong></p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">STEP-BY-STEP PROCEDURE (How to do it)</div>
+        <ol class="steps">
+          <li><span class="step-num">1</span><p>Rotate the flywheel slowly and find <strong>TDC (Top Dead Centre)</strong> — the point where the piston is at its highest. Mark it on the flywheel with chalk/thread.</p></li>
+          <li><span class="step-num">2</span><p>Similarly find and mark <strong>BDC (Bottom Dead Centre)</strong> — piston at lowest point.</p></li>
+          <li><span class="step-num">3</span><p>Wrap a thread around the flywheel and measure the full <strong>circumference</strong>. (Your notebook value: 92 cm)</p></li>
+          <li><span class="step-num">4</span><p>Rotate the flywheel again and watch the <strong>inlet valve</strong>. The moment it begins to open — mark that position on the flywheel. This is IVO.</p></li>
+          <li><span class="step-num">5</span><p>Continue rotating until inlet valve fully closes — mark IVC.</p></li>
+          <li><span class="step-num">6</span><p>Repeat for <strong>exhaust valve</strong> — mark EVO (opens) and EVC (closes).</p></li>
+          <li><span class="step-num">7</span><p>Use thread to measure distance (cm) of each mark from its respective dead centre (TDC or BDC).</p></li>
+          <li><span class="step-num">8</span><p>Apply formula: Angle = (Distance × 360) / 92 for each event.</p></li>
+          <li><span class="step-num">9</span><p>Draw the valve timing diagram — a circle with TDC at top, BDC at bottom, angles marked for all 4 events.</p></li>
+        </ol>
+      </div>
+
+      <div class="section">
+        <div class="section-title">HOW TO TAKE READINGS & CALCULATIONS</div>
+        <table>
+          <tr><th>Event</th><th>Distance from Dead Centre</th><th>Calculation</th><th>Result</th></tr>
+          <tr><td>IVO (Inlet Valve Opens)</td><td>1 cm from TDC</td><td>1 × 360 / 92</td><td>3.91° from TDC</td></tr>
+          <tr><td>IVC (Inlet Valve Closes)</td><td>1.5 cm from BDC</td><td>1.5 × 360 / 92</td><td>5.86° from BDC</td></tr>
+          <tr><td>EVO (Exhaust Valve Opens)</td><td>11 cm from BDC</td><td>11 × 360 / 92</td><td>43.04° from BDC</td></tr>
+          <tr><td>EVC (Exhaust Valve Closes)</td><td>8 cm from TDC</td><td>8 × 360 / 92</td><td>31.30° from TDC</td></tr>
+        </table>
+        <p style="margin-top:12px; font-size:0.85rem; color:var(--muted)">Note: In your notebook, final results stated as IVO=4.5° after TDC, IVC=35.5° BDC, EVO=36.5° BDC, EVC=4° after TDC (slight differences possible due to rounding)</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">💡 Diagram Drawing Tip</div>
+        <p>Draw a circle. TDC at 12 o'clock, BDC at 6 o'clock. Mark angles clockwise. IVO is just after TDC, EVC is just after TDC (overlap region). IVC is just after BDC, EVO is just before BDC.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">VIVA QUESTIONS & ANSWERS</div>
+        <ul class="viva-list">
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is a valve timing diagram? <span class="icon">▼</span></div>
+            <div class="viva-a">It is a circular diagram showing the opening and closing positions of inlet and exhaust valves in degrees of crank rotation, relative to TDC and BDC.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is TDC and BDC? <span class="icon">▼</span></div>
+            <div class="viva-a">TDC (Top Dead Centre) is the position where the piston is at the highest point in the cylinder. BDC (Bottom Dead Centre) is where the piston is at the lowest point.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">Why does the inlet valve open before TDC? <span class="icon">▼</span></div>
+            <div class="viva-a">To allow fresh charge to start filling the cylinder early, taking advantage of the inertia of the incoming air/fuel mixture. This improves volumetric efficiency.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">Why does the exhaust valve open before BDC? <span class="icon">▼</span></div>
+            <div class="viva-a">To allow exhaust gases to start escaping before the piston reaches BDC, using the cylinder pressure to assist blow-down and ensure complete scavenging.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is valve overlap? <span class="icon">▼</span></div>
+            <div class="viva-a">The period during which both inlet and exhaust valves are open simultaneously near TDC. It helps scavenge exhaust gases and charge the cylinder with fresh mixture.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is a feeler gauge used for? <span class="icon">▼</span></div>
+            <div class="viva-a">A feeler gauge is used to measure the valve clearance (tappet clearance) — the gap between the rocker arm and valve stem. This ensures precise valve opening timing.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">Name the 4 strokes of a diesel engine. <span class="icon">▼</span></div>
+            <div class="viva-a">1. Suction stroke (air enters), 2. Compression stroke (air compressed, fuel injected at end), 3. Power/Expansion stroke (combustion pushes piston down), 4. Exhaust stroke (burnt gases expelled).</div>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- EXP 2: 4S DIESEL ENGINE TEST RIG -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="exp-card col-engine" id="exp2">
+    <div class="exp-header" onclick="toggle('exp2')">
+      <span class="exp-num">EXP 02</span>
+      <span class="exp-title">4-Stroke Single Cylinder Diesel Engine — Test Rig with Electrical Dynamometer</span>
+      <span class="exp-toggle" id="exp2-toggle">▼</span>
+    </div>
+    <div class="exp-body" id="exp2-body">
+
+      <div class="section">
+        <div class="section-title">AIM & APPARATUS</div>
+        <p><strong>Aim:</strong> To conduct a trial on 4-stroke diesel engine with electrical dynamometer and determine BP, BTE, BSFC, air-fuel ratio, and draw graphs.</p>
+        <br>
+        <p><strong>Apparatus:</strong> 4-stroke diesel engine, electrical dynamometer, power supply, diesel, calorimeter, manometer (for air flow), burette (for fuel measurement)</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">KEY FORMULAS — Memorize These!</div>
+        <div class="formula-box">
+          <div class="formula-label">Brake Power (BP)</div>
+          BP = (V × I × T) / 1000 kW &nbsp;&nbsp; [Electrical Dyno]<br>
+          OR&nbsp;&nbsp; BP = 2πNT / 60000 kW &nbsp;&nbsp; [Mechanical Dyno]<br>
+          where V=Volts, I=Current(A), T=efficiency (or T=Torque in Nm, N=RPM)
+        </div>
+        <div class="formula-box">
+          <div class="formula-label">Fuel Consumption (FC)</div>
+          FC = (Volume of fuel × Specific gravity) / (Time in seconds × 1000) &nbsp;kg/s<br>
+          FC = (20 × 0.75) / (time × 1000) &nbsp;kg/s &nbsp;[for 20ml fuel, SG=0.75]
+        </div>
+        <div class="formula-box">
+          <div class="formula-label">Brake Specific Fuel Consumption (BSFC)</div>
+          BSFC = (FC × 3600) / BP &nbsp;&nbsp; [kg/kWh]
+        </div>
+        <div class="formula-box">
+          <div class="formula-label">Brake Thermal Efficiency (BTE)</div>
+          BTE = BP / (FC × Cv) × 100 &nbsp;&nbsp; [%]<br>
+          where Cv = Calorific Value of fuel = 44,000 kJ/kg for diesel
+        </div>
+        <div class="formula-box">
+          <div class="formula-label">Mass of Air (Ma) — from manometer</div>
+          Ma = Cd × A × √(2g × Ha × ρa/ρw) &nbsp;kg/s<br>
+          where Cd=0.62, A=area of orifice (d=14mm), Ha=manometer head, ρa=1.207 kg/m³<br>
+          Air-Fuel Ratio = Ma / FC
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">STEP-BY-STEP PROCEDURE</div>
+        <ol class="steps">
+          <li><span class="step-num">1</span><p>Check oil level in engine (use SAE-40 oil if low). Fill diesel in tank.</p></li>
+          <li><span class="step-num">2</span><p>Fill manometer with water to half height. Adjust water flow rate to engine and calorimeter.</p></li>
+          <li><span class="step-num">3</span><p>Fill burette with diesel by opening the valves (measure 20 ml fuel consumption).</p></li>
+          <li><span class="step-num">4</span><p>Start the engine, run at NO LOAD for 5 minutes until temperature stabilizes.</p></li>
+          <li><span class="step-num">5</span><p>Take first reading at no load: note V, I (=0), N (RPM), manometer H1 &amp; H2, time for 20ml fuel, water flow rates.</p></li>
+          <li><span class="step-num">6</span><p>Apply LOAD using load bank (electrical load). Wait for temperature to stabilize.</p></li>
+          <li><span class="step-num">7</span><p>Note: Voltage (V), Current (I), RPM (N), manometer readings (H1, H2), time for 20ml fuel, temperatures T1–T5.</p></li>
+          <li><span class="step-num">8</span><p>Increase load in steps and repeat (typically 3–4 load readings).</p></li>
+          <li><span class="step-num">9</span><p>Record ALL readings in observation table.</p></li>
+          <li><span class="step-num">10</span><p>Calculate BP, FC, BSFC, BTE, Air-Fuel Ratio for each load.</p></li>
+          <li><span class="step-num">11</span><p>Draw graphs: BP vs Fuel Consumption (William's Line), BP vs BSFC (decreasing curve), BP vs BTE (increasing curve).</p></li>
+        </ol>
+      </div>
+
+      <div class="section">
+        <div class="section-title">OBSERVATION TABLE COLUMNS</div>
+        <table>
+          <tr><th>Sr.</th><th>V</th><th>I</th><th>V×I</th><th>N(RPM)</th><th>H1</th><th>H2</th><th>H1-H2(m)</th><th>Fuel time(s)</th><th>Water-engine</th><th>Water-cal.</th></tr>
+          <tr><td>1</td><td>196</td><td>0</td><td>0</td><td>1459</td><td>157</td><td>124</td><td>33mm</td><td>~1043s</td><td>3.9</td><td>3.6</td></tr>
+          <tr><td>2</td><td>207</td><td>5.02</td><td>1039</td><td>1448</td><td>172</td><td>112</td><td>60mm</td><td>92s</td><td>3.9</td><td>3.6</td></tr>
+          <tr><td>3</td><td>215</td><td>10.8</td><td>2322</td><td>1480</td><td>174</td><td>111</td><td>63mm</td><td>79s</td><td>3.9</td><td>3.8</td></tr>
+          <tr><td>4</td><td>215</td><td>16.24</td><td>3491</td><td>1416</td><td>170</td><td>113</td><td>57mm</td><td>70s</td><td>3.9</td><td>3.8</td></tr>
+        </table>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">💡 Exam Tip — William's Line</div>
+        <p>William's Line is the graph of Fuel Consumption (y-axis) vs Brake Power (x-axis). It should be LINEAR. The x-intercept gives Friction Power (FP). This is a common viva question!</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">VIVA QUESTIONS & ANSWERS</div>
+        <ul class="viva-list">
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is Brake Power? <span class="icon">▼</span></div>
+            <div class="viva-a">Brake Power (BP) is the actual power available at the output shaft of the engine, measured using a dynamometer. It is less than indicated power due to friction losses. Formula: BP = 2πNT/60000 kW or BP = VIT/1000 kW.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is the difference between IP, BP, and FP? <span class="icon">▼</span></div>
+            <div class="viva-a">IP (Indicated Power) = total power developed in cylinder. BP (Brake Power) = useful power at shaft. FP (Friction Power) = power lost to friction. Relation: IP = BP + FP. Mechanical Efficiency = BP/IP × 100.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">Why does BSFC decrease and then increase with load? <span class="icon">▼</span></div>
+            <div class="viva-a">At low loads, the engine runs inefficiently (high BSFC). As load increases, efficiency improves (BSFC decreases). At very high loads, combustion becomes incomplete and mechanical losses increase, so BSFC rises again.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is BTE and its typical value for diesel engines? <span class="icon">▼</span></div>
+            <div class="viva-a">Brake Thermal Efficiency (BTE) = BP/(FC × Cv) × 100. It represents how much of the fuel's heat energy is converted to useful work. Typical value for diesel engines: 25–40%. Your experiment gave ~27–37% at different loads.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is an electrical dynamometer? How does it work? <span class="icon">▼</span></div>
+            <div class="viva-a">An electrical dynamometer absorbs engine power by generating electricity (acts as a generator). The load is applied by connecting electrical resistors. Power absorbed = V × I. It is easy to control and measure.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is specific gravity of diesel and its calorific value? <span class="icon">▼</span></div>
+            <div class="viva-a">Specific gravity of diesel ≈ 0.75. Calorific value (Cv) ≈ 44,000 kJ/kg. These are standard values used in all fuel consumption and efficiency calculations.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is the purpose of the exhaust gas calorimeter? <span class="icon">▼</span></div>
+            <div class="viva-a">The exhaust gas calorimeter measures the heat carried away by exhaust gases. It circulates cooling water and the temperature rise of water gives the heat rejected. Used in heat balance (energy audit) of the engine.</div>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- EXP 3: MORSE TEST -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="exp-card col-engine" id="exp3">
+    <div class="exp-header" onclick="toggle('exp3')">
+      <span class="exp-num">EXP 03</span>
+      <span class="exp-title">Multi-Cylinder Petrol Engine — Eddy Current Dynamometer (Morse Test)</span>
+      <span class="exp-toggle" id="exp3-toggle">▼</span>
+    </div>
+    <div class="exp-body" id="exp3-body">
+
+      <div class="section">
+        <div class="section-title">AIM</div>
+        <p>To calculate <strong>Indicated Power (IP), Friction Power (FP)</strong>, and <strong>Mechanical Efficiency</strong> of a 4-stroke multi-cylinder petrol engine at full load and rated speed using Morse Test.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">THEORY — The Morse Test Concept</div>
+        <p>The Morse Test is the <strong>only method to find IP of a multi-cylinder engine</strong> without using a pressure indicator. The idea is brilliantly simple:</p>
+        <br>
+        <p>→ Run engine at full load. Record BP (all cylinders firing).<br>
+        → Cut off one cylinder (short-circuit its spark plug).<br>
+        → Reduce dyno load to restore the SAME engine speed.<br>
+        → Record new BP. The DROP in BP = IP of that cylinder (because friction of that cylinder continues).</p>
+        <div class="formula-box">
+          <div class="formula-label">Morse Test Formulas</div>
+          IP of cylinder n = BP(all firing) − BP(cylinder n cut off)<br><br>
+          Total IP = IP₁ + IP₂ + IP₃ + IP₄<br><br>
+          Mechanical Efficiency (η_mech) = BP / Total IP × 100%<br><br>
+          Friction Power (FP) = Total IP − BP
+        </div>
+        <div class="mnemonic">
+          <div class="mn-label">🧠 Memory Trick</div>
+          <p>"Cut a cylinder, the BP drops. That drop IS the IP of that cylinder. Sum all drops = Total IP."</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">STEP-BY-STEP PROCEDURE</div>
+        <ol class="steps">
+          <li><span class="step-num">1</span><p>Check fuel supply, lubrication oil, and cooling water availability before starting.</p></li>
+          <li><span class="step-num">2</span><p>Set dynamometer to zero load. Start engine, let it reach working temperature and steady state. Adjust to desired speed.</p></li>
+          <li><span class="step-num">3</span><p>Apply full load, note BP (all cylinders firing) = 5.75 kW</p></li>
+          <li><span class="step-num">4</span><p>Cut off cylinder 1 (short-circuit spark plug). Engine speed drops.</p></li>
+          <li><span class="step-num">5</span><p>REDUCE dynamometer load to restore original speed. Record new BP₁ = 4.64 kW</p></li>
+          <li><span class="step-num">6</span><p>Re-connect cylinder 1. Run all cylinders for steady state. Repeat for cylinder 2, 3, 4.</p></li>
+          <li><span class="step-num">7</span><p>Calculate IP for each cylinder, find total IP, then mechanical efficiency.</p></li>
+          <li><span class="step-num">8</span><p>Bring dyno load to zero, disengage and stop engine.</p></li>
+        </ol>
+      </div>
+
+      <div class="section">
+        <div class="section-title">SAMPLE CALCULATIONS (From Your Notebook)</div>
+        <table>
+          <tr><th>Cylinder Cut</th><th>Speed (RPM)</th><th>Load (kg)</th><th>BP(kW)</th><th>IP = Full BP − Cut BP</th></tr>
+          <tr><td>All firing</td><td>—</td><td>—</td><td>5.75 kW</td><td>—</td></tr>
+          <tr><td>1st cut</td><td>1914</td><td>8</td><td>4.64 kW</td><td>IP₁ = 5.75−4.64 = <strong>1.11 kW</strong></td></tr>
+          <tr><td>2nd cut</td><td>1832</td><td>7</td><td>4.09 kW</td><td>IP₂ = 5.75−4.09 = <strong>1.66 kW</strong></td></tr>
+          <tr><td>3rd cut</td><td>1905</td><td>6</td><td>3.46 kW</td><td>IP₃ = 5.75−3.46 = <strong>2.29 kW</strong></td></tr>
+          <tr><td>4th cut</td><td>1923</td><td>5</td><td>2.91 kW</td><td>IP₄ = 5.75−2.91 = <strong>2.84 kW</strong></td></tr>
+        </table>
+        <div class="formula-box" style="margin-top:12px">
+          Total IP = 1.11 + 1.66 + 2.29 + 2.84 = <strong>7.9 kW</strong><br>
+          Mechanical Efficiency = (5.75 / 7.9) × 100 = <strong>72.78%</strong>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">VIVA QUESTIONS & ANSWERS</div>
+        <ul class="viva-list">
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is the principle of the Morse Test? <span class="icon">▼</span></div>
+            <div class="viva-a">The Morse Test assumes friction power is independent of load and proportional to speed. When one cylinder is cut, the drop in BP (at constant speed) equals the IP of that cylinder, since its friction continues but its power contribution stops.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">Why is it important to maintain constant speed during Morse Test? <span class="icon">▼</span></div>
+            <div class="viva-a">Because friction power is assumed constant only at constant speed. If speed changes, friction power changes, making the assumption invalid and the IP calculation inaccurate.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">Can Morse Test be applied to a single-cylinder engine? <span class="icon">▼</span></div>
+            <div class="viva-a">No. Morse Test requires at least 2 cylinders. For a single cylinder engine, you cannot "cut" a cylinder — indicated power must be determined using a P-V diagram (indicator diagram).</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is an eddy current dynamometer? <span class="icon">▼</span></div>
+            <div class="viva-a">It uses electromagnetic induction. When the rotor (attached to engine shaft) rotates in a magnetic field, eddy currents are induced, creating a braking torque. The load is controlled by varying the magnetic field strength. Unlike electrical dynamometer, it dissipates energy as heat.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is mechanical efficiency and its typical value? <span class="icon">▼</span></div>
+            <div class="viva-a">Mechanical efficiency = BP/IP × 100. It accounts for friction losses in piston rings, bearings, valve train etc. Typical values: 75–90% for modern engines. Your experiment: 72.78%.</div>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- EXP 4: VCR CRDI DIESEL -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="exp-card col-engine" id="exp4">
+    <div class="exp-header" onclick="toggle('exp4')">
+      <span class="exp-num">EXP 04</span>
+      <span class="exp-title">Variable Compression Ratio (CRDI) Diesel Engine — Multiple Mode Tests</span>
+      <span class="exp-toggle" id="exp4-toggle">▼</span>
+    </div>
+    <div class="exp-body" id="exp4-body">
+
+      <div class="section">
+        <div class="section-title">AIM</div>
+        <p>To study the performance characteristics of a CRDI VCR diesel engine under: (1) Variable CR, (2) Constant speed, (3) Variable speed, (4) LPG/Dual fuel operation.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">KEY CONCEPTS</div>
+        <p><strong>CRDI (Common Rail Direct Injection):</strong> Fuel is supplied at HIGH pressure through a common rail to all injectors, ensuring better atomization, improved combustion, and reduced emissions.</p>
+        <br>
+        <p><strong>VCR (Variable Compression Ratio):</strong> Allows changing CR while the engine is running by adjusting clearance volume. Change CR only at ZERO/low load.</p>
+        <br>
+        <p><strong>Higher CR:</strong> Improves thermal efficiency, increases power, but may increase knocking.<br>
+        <strong>Lower CR:</strong> Reduces knocking, suitable for high load operation.</p>
+        <div class="formula-box">
+          <div class="formula-label">Compression Ratio</div>
+          CR = Total Cylinder Volume / Clearance Volume = (Vs + Vc) / Vc<br>
+          where Vs = swept volume, Vc = clearance volume
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">STEP-BY-STEP PROCEDURE</div>
+        <ol class="steps">
+          <li><span class="step-num">1</span><p>Check voltage (±12V), fuel level. Keep load at zero.</p></li>
+          <li><span class="step-num">2</span><p>Start water supply, set flow rates.</p></li>
+          <li><span class="step-num">3</span><p>Switch ON panel and battery charger.</p></li>
+          <li><span class="step-num">4</span><p>Start engine using ignition key.</p></li>
+          <li><span class="step-num">5</span><p>Open Neera and IC Engine software on computer.</p></li>
+          <li><span class="step-num">6</span><p>Set compression ratio using the CR adjustment mechanism.</p></li>
+          <li><span class="step-num">7</span><p>Apply load gradually and record: RPM, load, fuel consumption, cylinder pressure.</p></li>
+          <li><span class="step-num">8</span><p>Unload dynamometer completely then repeat for different CR or speed.</p></li>
+          <li><span class="step-num">9</span><p>For LPG test (Dual fuel mode): connect LPG, start diesel first, then switch to dual fuel mode.</p></li>
+        </ol>
+      </div>
+
+      <div class="section">
+        <div class="section-title">RESULTS TREND (What to expect)</div>
+        <ul class="bullet">
+          <li>BP increases with load.</li>
+          <li>SFC decreases initially then increases at high load.</li>
+          <li>Thermal efficiency improves with higher CR.</li>
+          <li>Higher speed increases power output.</li>
+          <li>LPG operation reduces diesel consumption but requires careful control.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">VIVA QUESTIONS & ANSWERS</div>
+        <ul class="viva-list">
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is VCR engine and its advantage? <span class="icon">▼</span></div>
+            <div class="viva-a">A VCR (Variable Compression Ratio) engine allows changing the compression ratio while running by altering the clearance volume. Advantages: optimizes efficiency at different loads, reduces emissions, allows dual-fuel operation, better performance across operating range.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is CRDI system? <span class="icon">▼</span></div>
+            <div class="viva-a">Common Rail Direct Injection — fuel is stored at very high pressure (1000–2000 bar) in a common rail and injected directly into each cylinder. Advantages: precise fuel metering, better atomization, improved combustion efficiency, reduced NOx and particulate emissions.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">Why should CR never be changed at full load? <span class="icon">▼</span></div>
+            <div class="viva-a">Changing CR at high load can cause mechanical damage to the engine. The connecting rod mechanism used to change clearance volume experiences excessive stress under high combustion pressures. Always change CR only at zero or low load.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What are the benefits of dual fuel (LPG+Diesel) operation? <span class="icon">▼</span></div>
+            <div class="viva-a">Reduced diesel consumption, lower particulate emissions, LPG burns cleaner than diesel, cost savings. Disadvantage: reduced power, risk of backfire, requires careful air-fuel ratio control.</div>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- EXP 5: VCR ENGINE DIFFERENT CR -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="exp-card col-engine" id="exp5">
+    <div class="exp-header" onclick="toggle('exp5')">
+      <span class="exp-num">EXP 05</span>
+      <span class="exp-title">Variable Compression Ratio Diesel Engine — Different CR &amp; Loads</span>
+      <span class="exp-toggle" id="exp5-toggle">▼</span>
+    </div>
+    <div class="exp-body" id="exp5-body">
+      <div class="section">
+        <div class="section-title">AIM & OBJECTIVE</div>
+        <p>To study performance characteristics of a VCR diesel engine at different compression ratios and loads. Determine BP, SFC, thermal efficiency, and study the effect of CR on engine performance.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">APPARATUS</div>
+        <p>Single cylinder VCR CRDI diesel engine, Eddy current dynamometer, fuel measuring burette, Air orifice unit, Calorimeter with water flow rotameter, Temp &amp; pressure sensors, IC Engine &amp; Neera software.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">KEY FORMULAS (Air Compressor-Style Calculations)</div>
+        <div class="formula-box">
+          <div class="formula-label">From your notebook — Sample Calculations</div>
+          h = (H1 − H2)/100 = 3.6×10⁻² m (manometer head)<br><br>
+          ΔH = (ρw/ρa − 1) × h = (1000/1.21 − 1) × 3.6×10⁻² = 29.72 m<br><br>
+          Qa = Cd × Ao × √(2g × ΔH) &nbsp;[m³/s]<br><br>
+          Qt = πd²LN / (60×4) &nbsp;[theoretical air flow]<br><br>
+          Volumetric Efficiency η_vol = Qa/Qt × 100%<br><br>
+          Torque T = W × g × R (dyno arm radius = 0.18m)<br><br>
+          Shaft Power Fs = 2πNT / (60×1000) kW
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">VIVA QUESTIONS</div>
+        <ul class="viva-list">
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">How does compression ratio affect thermal efficiency? <span class="icon">▼</span></div>
+            <div class="viva-a">Higher CR compresses air more, raising its temperature before fuel injection. This leads to better combustion, higher peak pressure, and more work output per cycle — thus higher thermal efficiency. For diesel: η_th = 1 − 1/CR^(γ−1) approximately.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is volumetric efficiency? <span class="icon">▼</span></div>
+            <div class="viva-a">Volumetric efficiency = (Actual volume of air drawn in) / (Theoretical swept volume) × 100. It measures how effectively the engine "breathes". Affected by valve timing, intake temperature, engine speed, and cylinder geometry.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is isothermal efficiency of a compressor? <span class="icon">▼</span></div>
+            <div class="viva-a">Isothermal efficiency = Isothermal power / Actual shaft power × 100. Isothermal compression is the ideal (most efficient) compression where temperature remains constant. Higher isothermal efficiency means the compressor approaches ideal behavior.</div>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- EXP 6: AIR COMPRESSOR -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="exp-card col-thermo" id="exp6">
+    <div class="exp-header" onclick="toggle('exp6')">
+      <span class="exp-num">EXP 06</span>
+      <span class="exp-title">Double Stage Air Compressor Test Rig</span>
+      <span class="exp-toggle" id="exp6-toggle">▼</span>
+    </div>
+    <div class="exp-body" id="exp6-body">
+
+      <div class="section">
+        <div class="section-title">AIM & APPARATUS</div>
+        <p><strong>Aim:</strong> To find volumetric efficiency, isothermal efficiency, and compression ratio of a double-stage air compressor.</p>
+        <br>
+        <p><strong>Apparatus:</strong> Electric supply, water supply (2 LPM at 1 bar), double-stage air compressor with intercooler, pressure gauges, orifice meter for air measurement, rotameter.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">THEORY — Two-Stage Compression</div>
+        <p>In a two-stage compressor, air is first compressed in a low-pressure (LP) cylinder, passed through an <strong>intercooler</strong> (where it is cooled back to near ambient temperature), then compressed again in a high-pressure (HP) cylinder.</p>
+        <br>
+        <p>The intercooling reduces the work required for second-stage compression, improving efficiency compared to single-stage compression to the same final pressure.</p>
+        <div class="formula-box">
+          <div class="formula-label">Key Formulas</div>
+          Compression Ratio r = P_delivery / P_atmospheric<br><br>
+          Isothermal Power (F_iso) = Pa × Qa × ln(r) / 1000 &nbsp;kW<br><br>
+          Shaft Power (Fs) = 2πNT / 60000 kW (from motor input or torque)<br><br>
+          Volumetric Efficiency η_vol = Qa / Qt × 100%<br><br>
+          Isothermal Efficiency η_iso = F_iso / Fs × 100%
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">STEP-BY-STEP PROCEDURE</div>
+        <ol class="steps">
+          <li><span class="step-num">1</span><p>Close delivery valve V1 of tank. Start the compressor.</p></li>
+          <li><span class="step-num">2</span><p>Connect cooling water supply to condenser outlet; open condenser cooling water to drain.</p></li>
+          <li><span class="step-num">3</span><p>Open valve V2 and start cooling water supply.</p></li>
+          <li><span class="step-num">4</span><p>Let receiver pressure rise to ~1 kg/cm². Now partially open V1 to maintain constant delivery pressure.</p></li>
+          <li><span class="step-num">5</span><p>Apply load on rod to maintain horizontal position during operation.</p></li>
+          <li><span class="step-num">6</span><p>Record: delivery pressure, orifice manometer readings (H1, H2), temperatures (T1–T4), load on balance, RPM.</p></li>
+          <li><span class="step-num">7</span><p>Repeat for different delivery pressures by adjusting V1.</p></li>
+        </ol>
+      </div>
+
+      <div class="section">
+        <div class="section-title">SAMPLE RESULTS (From Notebook)</div>
+        <div class="formula-box">
+          η_vol = 0.34% → (actually 34% — the decimal notation used in notebook)<br>
+          r (compression ratio) = 303<br>
+          η_iso = 62.81%
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">VIVA QUESTIONS & ANSWERS</div>
+        <ul class="viva-list">
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is the purpose of the intercooler? <span class="icon">▼</span></div>
+            <div class="viva-a">The intercooler cools the compressed air between stages, reducing its temperature back toward ambient. This reduces the volume and temperature of air entering the 2nd stage, reducing the work required for compression and improving overall efficiency.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">Why is isothermal compression the ideal case? <span class="icon">▼</span></div>
+            <div class="viva-a">Isothermal compression (constant temperature) requires the least work of all compression processes. In practice, compression is polytropic (between isothermal and adiabatic). The isothermal efficiency measures how close the actual process is to the ideal isothermal process.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is clearance volume and how does it affect volumetric efficiency? <span class="icon">▼</span></div>
+            <div class="viva-a">Clearance volume is the volume remaining in the cylinder when the piston is at TDC (dead end). At end of delivery, compressed gas remains in clearance volume and re-expands on suction stroke, reducing the fresh air intake — thus reducing volumetric efficiency. Higher clearance = lower η_vol.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is the advantage of 2-stage over single-stage compression? <span class="icon">▼</span></div>
+            <div class="viva-a">Two-stage with intercooling: (1) Less total work input, (2) Lower delivery temperature, (3) Better volumetric efficiency, (4) Less thermal stress on components, (5) Can achieve higher pressure ratios safely.</div>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- EXP 7: REDWOOD VISCOMETER -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="exp-card col-fuel" id="exp7">
+    <div class="exp-header" onclick="toggle('exp7')">
+      <span class="exp-num">EXP 07</span>
+      <span class="exp-title">Redwood Viscometer — Effect of Temperature on Viscosity</span>
+      <span class="exp-toggle" id="exp7-toggle">▼</span>
+    </div>
+    <div class="exp-body" id="exp7-body">
+
+      <div class="section">
+        <div class="section-title">AIM & APPARATUS</div>
+        <p><strong>Aim:</strong> To analyse the effect of temperature on the viscosity of a fluid (oil) using Redwood Viscometer.</p>
+        <br>
+        <p><strong>Apparatus:</strong> Redwood Viscometer No.1, oil sample, measuring flask (50 ml), stopwatch, thermometer, water bath.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">THEORY</div>
+        <p><strong>Viscosity</strong> = the property of a fluid that determines its resistance to flow. Lower the viscosity → greater the flow ability.</p>
+        <br>
+        <p>Redwood viscometer is used for <strong>low-viscous oils</strong> (flow time 30s–2000s) like kerosene oil, mustard oil. It determines viscosity at 80°C and below.</p>
+        <br>
+        <p><strong>Key relationship:</strong> Viscosity is INVERSELY proportional to temperature — as temperature increases, viscosity decreases (oil thins).</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">STEP-BY-STEP PROCEDURE</div>
+        <ol class="steps">
+          <li><span class="step-num">1</span><p>Clean the viscometer and close the orifice with the ball valve.</p></li>
+          <li><span class="step-num">2</span><p>Fill oil sample up to the marked level in the oil cup.</p></li>
+          <li><span class="step-num">3</span><p>Heat the water bath to required temperature (e.g., 23°C, 50°C, 60°C, 70°C) and maintain it constant.</p></li>
+          <li><span class="step-num">4</span><p>Place measuring flask (50 ml) below the orifice.</p></li>
+          <li><span class="step-num">5</span><p>Open the ball valve and start stopwatch simultaneously.</p></li>
+          <li><span class="step-num">6</span><p>Stop the watch when 50 ml of oil has collected in the flask.</p></li>
+          <li><span class="step-num">7</span><p>Repeat the reading and take average time (Redwood seconds).</p></li>
+          <li><span class="step-num">8</span><p>Convert time to kinematic viscosity using the formula.</p></li>
+          <li><span class="step-num">9</span><p>Repeat for different temperatures.</p></li>
+        </ol>
+      </div>
+
+      <div class="section">
+        <div class="section-title">FORMULA & READINGS</div>
+        <div class="formula-box">
+          <div class="formula-label">Viscosity Conversion Formula</div>
+          When time &gt; 100 seconds: &nbsp;&nbsp; ν = 0.24t − 50/t &nbsp;&nbsp; [centistokes, cSt]<br>
+          When time &lt; 100 seconds: &nbsp;&nbsp; ν = 0.26t − 179/t
+        </div>
+        <table>
+          <tr><th>Temperature (°C)</th><th>Flow Time (s)</th><th>Viscosity (cSt)</th></tr>
+          <tr><td>23</td><td>1320</td><td>316.76</td></tr>
+          <tr><td>50</td><td>471</td><td>112.93</td></tr>
+          <tr><td>60</td><td>302</td><td>72.31</td></tr>
+          <tr><td>70</td><td>226</td><td>54.02</td></tr>
+        </table>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">💡 Key Result to Remember</div>
+        <p>As temperature INCREASES, viscosity DECREASES. This is the fundamental conclusion of this experiment. Viscosity at 23°C (316.76) is nearly 6× greater than at 70°C (54.02).</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">VIVA QUESTIONS & ANSWERS</div>
+        <ul class="viva-list">
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">Define viscosity. What are its units? <span class="icon">▼</span></div>
+            <div class="viva-a">Viscosity is the property of a fluid that resists relative motion between its layers (internal friction). Dynamic viscosity unit: Pa·s or poise (P). Kinematic viscosity = dynamic/density, unit: m²/s or centistokes (cSt = mm²/s).</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is the effect of temperature on viscosity of liquids vs gases? <span class="icon">▼</span></div>
+            <div class="viva-a">For LIQUIDS: viscosity DECREASES with temperature (oil thins when heated — intermolecular forces weaken). For GASES: viscosity INCREASES with temperature (molecular activity increases). This is the opposite behavior!</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is Redwood No.1 vs Redwood No.2 viscometer? <span class="icon">▼</span></div>
+            <div class="viva-a">Redwood No.1 is used for low-viscosity oils (flow time 30–2000s). Redwood No.2 has a larger orifice, used for heavy/viscous oils (flow time &gt; 2000s). The lab uses Redwood No.1 for lubricating oils.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">Why is viscosity important for lubricating oils? <span class="icon">▼</span></div>
+            <div class="viva-a">Viscosity determines the oil film thickness between moving parts. Too high: excessive friction and energy loss. Too low: oil film breaks, causing metal-to-metal contact and wear. Correct viscosity (SAE grade) must match the operating temperature range.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is the effect of pressure on viscosity? <span class="icon">▼</span></div>
+            <div class="viva-a">Viscosity of liquids INCREASES with pressure (molecules are forced closer together, increasing resistance to flow). This is especially important in high-pressure hydraulic systems and engine lubrication.</div>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- EXP 8: PYCNOMETER -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="exp-card col-fuel" id="exp8">
+    <div class="exp-header" onclick="toggle('exp8')">
+      <span class="exp-num">EXP 08</span>
+      <span class="exp-title">Density Determination by Pycnometer</span>
+      <span class="exp-toggle" id="exp8-toggle">▼</span>
+    </div>
+    <div class="exp-body" id="exp8-body">
+
+      <div class="section">
+        <div class="section-title">AIM & APPARATUS</div>
+        <p><strong>Aim:</strong> To determine the density of a given liquid using Pycnometer.</p>
+        <br>
+        <p><strong>Apparatus:</strong> Pycnometer (specific gravity bottle), weighing machine, distilled water, test liquid.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">THEORY</div>
+        <p>A <strong>Pycnometer</strong> (specific gravity bottle) is a glass flask with a close-fitting ground glass stopper with a fine capillary hole. It gives a precise, repeatable volume of liquid.</p>
+        <br>
+        <p>The density of liquid is found by comparing its mass to the mass of the same volume of water (known density).</p>
+        <div class="formula-box">
+          <div class="formula-label">Density Calculation</div>
+          Let: m₀ = mass of empty dry pycnometer<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m₁ = mass of pycnometer + water (m₁ − m₀ = mass of water)<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m₂ = mass of pycnometer + test liquid (m₂ − m₀ = mass of liquid)<br><br>
+          Volume of water = (m₁ − m₀) / ρ_water &nbsp;&nbsp;[same volume for liquid]<br><br>
+          Density of liquid ρ = (m₂ − m₀) / (m₁ − m₀) × ρ_water
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">STEP-BY-STEP PROCEDURE</div>
+        <ol class="steps">
+          <li><span class="step-num">1</span><p>Weigh the empty, dry, clean pycnometer → m₀</p></li>
+          <li><span class="step-num">2</span><p>Fill with distilled water (up to brim, insert stopper), wipe outside, weigh → m₁</p></li>
+          <li><span class="step-num">3</span><p>Empty, dry the pycnometer completely.</p></li>
+          <li><span class="step-num">4</span><p>Fill with test liquid, insert stopper, wipe, weigh → m₂</p></li>
+          <li><span class="step-num">5</span><p>Note laboratory temperature.</p></li>
+          <li><span class="step-num">6</span><p>Calculate density using formula above.</p></li>
+        </ol>
+        <div class="formula-box" style="margin-top:12px">
+          <div class="formula-label">Your Notebook Result</div>
+          Weight of fluid = 945 grams → <strong>Density = 945 kg/m³</strong>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">VIVA QUESTIONS & ANSWERS</div>
+        <ul class="viva-list">
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is the difference between density and specific gravity? <span class="icon">▼</span></div>
+            <div class="viva-a">Density = mass/volume (kg/m³ or g/cm³). Specific gravity (SG) = density of substance / density of water at 4°C. SG is dimensionless. For diesel: density ≈ 750 kg/m³, SG ≈ 0.75. For water: density = 1000 kg/m³, SG = 1.0.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">Why must the pycnometer be completely dry before filling with test liquid? <span class="icon">▼</span></div>
+            <div class="viva-a">Any residual water would mix with the test liquid, diluting it and changing its actual density. This would give an incorrect mass reading and hence an incorrect density calculation.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">Why is temperature important in density measurement? <span class="icon">▼</span></div>
+            <div class="viva-a">Density of most liquids changes with temperature (liquids expand when heated, reducing density). Standard density measurements are reported at 15°C or 20°C. Laboratory temperature must be recorded for accurate results.</div>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- EXP 9: CLOUD & POUR POINT -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="exp-card col-fuel" id="exp9">
+    <div class="exp-header" onclick="toggle('exp9')">
+      <span class="exp-num">EXP 09</span>
+      <span class="exp-title">Cloud Point &amp; Pour Point Apparatus</span>
+      <span class="exp-toggle" id="exp9-toggle">▼</span>
+    </div>
+    <div class="exp-body" id="exp9-body">
+
+      <div class="section">
+        <div class="section-title">AIM & APPARATUS</div>
+        <p><strong>Aim:</strong> To determine the cloud point and pour point of a given lubricant.</p>
+        <br>
+        <p><strong>Apparatus:</strong> Cooling bath with stand, metal jar with bottom insulated disc, glass jar with rubber gasket and cork, thermometer, dry ice.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">DEFINITIONS — MUST KNOW!</div>
+        <div class="formula-box">
+          <div class="formula-label">Cloud Point</div>
+          The temperature at which a <strong>cloud or haze FIRST appears</strong> in the oil when it is cooled under prescribed conditions. Wax crystals begin to form.
+        </div>
+        <div class="formula-box">
+          <div class="formula-label">Pour Point</div>
+          The <strong>lowest temperature</strong> at which the oil is observed to flow when cooled and tilted. Pour Point = last temperature at which oil flows + 3°C correction. When the tilted surface shows no movement for 5 seconds → Pour Point.
+        </div>
+        <div class="mnemonic">
+          <div class="mn-label">🧠 Memory Trick</div>
+          <p><strong>Cloud → Cloudy appearance (haze forms)</strong> — higher temp<br>
+          <strong>Pour → Can you pour it? (flow stops)</strong> — lower temp<br>
+          So: Cloud Point &gt; Pour Point always.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">STEP-BY-STEP PROCEDURE</div>
+        <ol class="steps">
+          <li><span class="step-num">1</span><p>Keep the cooling bath on stand. Fill dry ice cubes around the bath up to neck level.</p></li>
+          <li><span class="step-num">2</span><p>Fill oil in glass tube up to lower marked line. Put rubber cork tightly. Place inside metal vessel.</p></li>
+          <li><span class="step-num">3</span><p>Fix thermometer in its position.</p></li>
+          <li><span class="step-num">4</span><p>Temperature will drop. Remove jar from jacket quickly and inspect oil for cloud (haze appearance). Record thermometer reading → this is Cloud Point.</p></li>
+          <li><span class="step-num">5</span><p>Close the jar and cool further. Inspect at every 2°C interval.</p></li>
+          <li><span class="step-num">6</span><p>Tilt the jar horizontally. If oil shows NO MOVEMENT for 5 seconds → record that temperature. Add 3°C → Pour Point.</p></li>
+          <li><span class="step-num">7</span><p>Repeat the test — results should not differ by more than 1°C.</p></li>
+        </ol>
+      </div>
+
+      <div class="section">
+        <div class="section-title">RESULTS (From Notebook)</div>
+        <div class="formula-box">
+          Cloud Point observation: 21°C + 10°C correction = <strong>31°C</strong><br>
+          Pour Point observation: 18°C + 10°C correction = <strong>28°C</strong>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">VIVA QUESTIONS & ANSWERS</div>
+        <ul class="viva-list">
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What causes oil to have a cloud point? <span class="icon">▼</span></div>
+            <div class="viva-a">Petroleum oils contain wax (paraffin compounds). As temperature drops, these wax compounds begin to crystallize and separate out of solution, making the oil appear cloudy or hazy. The Cloud Point marks the onset of this wax crystallization.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is the significance of pour point for lubricants? <span class="icon">▼</span></div>
+            <div class="viva-a">Pour point determines the lowest ambient temperature at which the lubricant can be used. If the ambient temperature drops below the pour point, the oil will not flow — causing pump failure, inadequate lubrication at startup, and engine damage. Critical for cold-climate applications.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">Is pour point always lower than cloud point? <span class="icon">▼</span></div>
+            <div class="viva-a">Yes, always. Cloud point is when wax STARTS forming (oil still flows). Pour point is when wax has formed enough to STOP flow. So: Cloud Point > Pour Point. Exception: waxy-free oils (naphthenic) may have very close or coincident values.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">How can the pour point of a lubricant be improved (lowered)? <span class="icon">▼</span></div>
+            <div class="viva-a">By adding pour point depressants (PPD) — chemical additives that interfere with wax crystal growth, keeping the oil flowing at lower temperatures. Dewaxing (removing wax compounds) is another method used in refinery processes.</div>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- EXP 10: CARBON RESIDUE -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="exp-card col-fuel" id="exp10">
+    <div class="exp-header" onclick="toggle('exp10')">
+      <span class="exp-num">EXP 10</span>
+      <span class="exp-title">Rams Bottom Carbon Residue Apparatus</span>
+      <span class="exp-toggle" id="exp10-toggle">▼</span>
+    </div>
+    <div class="exp-body" id="exp10-body">
+
+      <div class="section">
+        <div class="section-title">AIM & APPARATUS</div>
+        <p><strong>Aim:</strong> To determine the percentage of carbon residue of sample fuel oils.</p>
+        <br>
+        <p><strong>Apparatus:</strong> Metal furnace with 5 wells, temperature control box, temperature sensor, cocking (coking) bulb, syringe for filling sample oil.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">THEORY</div>
+        <p><strong>Carbon Residue</strong> = the amount of solid carbonaceous matter (coke) left after evaporation and pyrolysis (thermal decomposition) of oil when heated under controlled conditions without air.</p>
+        <br>
+        <p>It is an important quality parameter — indicates the tendency of oil to form carbon deposits in engines, combustion chambers, and injectors. Lower carbon residue = better fuel quality.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">STEP-BY-STEP PROCEDURE</div>
+        <ol class="steps">
+          <li><span class="step-num">1</span><p>Take 2–4 grams of sample oil in a glass bulb (coking bulb) that has a capillary opening. Inject using syringe.</p></li>
+          <li><span class="step-num">2</span><p>Weigh the sample oil and also the coking bulb (before adding sample).</p></li>
+          <li><span class="step-num">3</span><p>Place the sample with bulb inside the round heating bath (furnace well).</p></li>
+          <li><span class="step-num">4</span><p>Set the metal furnace temperature between 300°C to 550°C as per test requirement using digital temperature controller.</p></li>
+          <li><span class="step-num">5</span><p>Keep bulb with metal tongs inside the bath for about 20 minutes until sample oil is completely burnt.</p></li>
+          <li><span class="step-num">6</span><p>After removal, cool the bulb and weigh to nearest 0.1 mg.</p></li>
+          <li><span class="step-num">7</span><p>Calculate carbon residue %.</p></li>
+        </ol>
+      </div>
+
+      <div class="section">
+        <div class="section-title">FORMULA</div>
+        <div class="formula-box">
+          <div class="formula-label">Carbon Residue</div>
+          Carbon Residue (%) = (A / W) × 100<br>
+          where: A = weight of carbon residue (grams)<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;W = weight of original sample (grams)
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">VIVA QUESTIONS & ANSWERS</div>
+        <ul class="viva-list">
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is carbon residue and why is it tested? <span class="icon">▼</span></div>
+            <div class="viva-a">Carbon residue is the solid carbonaceous deposit remaining after evaporation and pyrolysis of a fuel or lubricant. It is tested to evaluate the tendency of oil to form coke/carbon deposits in engine parts like pistons, injectors, and combustion chambers. High carbon residue leads to fouling and reduced engine performance.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What are the two standard methods to determine carbon residue? <span class="icon">▼</span></div>
+            <div class="viva-a">(1) Conradson Carbon Residue (CCR) test — older method using a Conradson crucible. (2) Rams Bottom Carbon Residue (RBCR) test — modern, more precise method using a coking bulb in a controlled furnace. ASTM D524 standard for Rams Bottom method.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is pyrolysis? <span class="icon">▼</span></div>
+            <div class="viva-a">Pyrolysis is the thermal decomposition of organic material at elevated temperatures (300–700°C) in the absence of oxygen. The material breaks down into gases, liquid (bio-oil), and solid (char/coke). In the carbon residue test, the oil undergoes pyrolysis, leaving behind solid carbon.</div>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- EXP 11: FLASH POINT -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="exp-card col-fuel" id="exp11">
+    <div class="exp-header" onclick="toggle('exp11')">
+      <span class="exp-num">EXP 11</span>
+      <span class="exp-title">Pensky-Martens Flash Point Apparatus (Closed Cup)</span>
+      <span class="exp-toggle" id="exp11-toggle">▼</span>
+    </div>
+    <div class="exp-body" id="exp11-body">
+
+      <div class="section">
+        <div class="section-title">AIM & APPARATUS</div>
+        <p><strong>Aim:</strong> To determine the flash point of the given oil using Pensky-Martens Closed Cup apparatus.</p>
+        <br>
+        <p><strong>Apparatus:</strong> Pensky-Martens flash point apparatus, thermometer, test flame device, stirrer, sample oil.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">KEY DEFINITIONS</div>
+        <div class="formula-box">
+          <div class="formula-label">Flash Point</div>
+          The <strong>lowest temperature</strong> at which the vapours of a liquid form an ignitable mixture with air and produce a <strong>momentary flash</strong> on application of a small flame. It does NOT sustain combustion.
+        </div>
+        <div class="formula-box">
+          <div class="formula-label">Fire Point (Different!)</div>
+          The temperature at which the oil vapours SUSTAIN combustion for at least 5 seconds after ignition. Fire Point &gt; Flash Point (typically 5–40°C higher).
+        </div>
+        <div class="mnemonic">
+          <div class="mn-label">🧠 Memory Trick</div>
+          <p><strong>Flash = Momentary flash (blink!)</strong> — vapours ignite but don't sustain.<br>
+          <strong>Fire = Sustained burning (stays lit!)</strong> — vapours keep burning.<br>
+          Flash Point &lt; Fire Point always.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">STEP-BY-STEP PROCEDURE</div>
+        <ol class="steps">
+          <li><span class="step-num">1</span><p>Fill the test cup with sample oil up to the marked line (not too full).</p></li>
+          <li><span class="step-num">2</span><p>Close the lid tightly (closed cup method). Insert thermometer.</p></li>
+          <li><span class="step-num">3</span><p>Heat the oil at a controlled rate (~5-6°C per minute) with continuous stirring.</p></li>
+          <li><span class="step-num">4</span><p>Apply the test flame at regular temperature intervals (every 1°C near expected flash point).</p></li>
+          <li><span class="step-num">5</span><p>The temperature at which a distinct flash (not sustained flame) first appears is the <strong>Flash Point</strong>.</p></li>
+          <li><span class="step-num">6</span><p>Record the thermometer reading immediately as flash point.</p></li>
+        </ol>
+        <div class="formula-box" style="margin-top:12px">
+          <div class="formula-label">Your Notebook Result</div>
+          Flash Point of given oil sample = <strong>54°C</strong>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">VIVA QUESTIONS & ANSWERS</div>
+        <ul class="viva-list">
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is the significance of flash point? <span class="icon">▼</span></div>
+            <div class="viva-a">Flash point indicates the volatility and fire hazard of a fuel or oil. Lower flash point = more volatile = higher fire risk. It is used for: (1) Safe storage and transportation regulations, (2) Classification of flammable liquids, (3) Selection of fuels and lubricants for specific applications.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is the difference between open cup and closed cup flash point tests? <span class="icon">▼</span></div>
+            <div class="viva-a">Open Cup (Cleveland method): oil is heated in an open cup; vapours disperse freely, giving a higher flash point reading. Closed Cup (Pensky-Martens): oil is heated in a sealed cup; vapours concentrate, giving a LOWER flash point — more accurate for hazard assessment. Closed cup values are always lower than open cup values for the same oil.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What are typical flash points for common fuels? <span class="icon">▼</span></div>
+            <div class="viva-a">Petrol (Gasoline): −40°C (very dangerous!). Diesel: 52–80°C (your result: 54°C — matches!). Kerosene: 37–65°C. Lubricating oil: 200–300°C. The high flash point of diesel makes it safer to store than petrol.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">Why does diesel engine not need a spark plug? <span class="icon">▼</span></div>
+            <div class="viva-a">Diesel fuel ignites by compression heat, not a spark. In a diesel engine, air is compressed to very high pressure (~16:1 to 22:1 CR), raising its temperature to 500–700°C. When diesel is injected, it spontaneously ignites due to this high temperature (auto-ignition). Diesel's auto-ignition temperature is ~250°C.</div>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- EXP 12: BOMB CALORIMETER -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="exp-card col-thermo" id="exp12">
+    <div class="exp-header" onclick="toggle('exp12')">
+      <span class="exp-num">EXP 12</span>
+      <span class="exp-title">Bomb Calorimeter — Heat of Combustion</span>
+      <span class="exp-toggle" id="exp12-toggle">▼</span>
+    </div>
+    <div class="exp-body" id="exp12-body">
+
+      <div class="section">
+        <div class="section-title">AIM & APPARATUS</div>
+        <p><strong>Aim:</strong> To understand the working of bomb calorimeter and measure the standard enthalpy of combustion of a sample. Use known heat of benzoic acid to determine heat capacity of calorimeter, then measure unknown sample.</p>
+        <br>
+        <p><strong>Apparatus:</strong> Bomb calorimeter, oxygen cylinder, pellet press, fuse wire, thermometer, water bath, analytical balance.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">THEORY</div>
+        <p>A bomb calorimeter measures <strong>heat released during combustion at constant volume</strong>. The temperature rise of the surrounding water is proportional to the heat of combustion of the sample.</p>
+        <div class="formula-box">
+          <div class="formula-label">Key Formula</div>
+          Q = m_water × C_water × ΔT &nbsp;(for calorimeter calibration)<br><br>
+          CV (Calorific Value) = Q / mass of sample<br><br>
+          Water Equivalent (WE) = Q / ΔT (accounts for heat absorbed by bomb itself)<br><br>
+          CV = (WE × ΔT) / (mass of sample) kJ/kg
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">PROCEDURE</div>
+        <ol class="steps">
+          <li><span class="step-num">1</span><p>Prepare sample as a pellet (using pellet press). Attach fuse wire through the pellet.</p></li>
+          <li><span class="step-num">2</span><p>Place pellet in the bomb crucible. Connect fuse wire to electrodes.</p></li>
+          <li><span class="step-num">3</span><p>Fill the bomb with oxygen at 20–30 atm pressure. Seal the bomb.</p></li>
+          <li><span class="step-num">4</span><p>Immerse bomb in water bath. Record initial temperature accurately every 30 seconds.</p></li>
+          <li><span class="step-num">5</span><p>Ignite sample by passing electric current through fuse wire.</p></li>
+          <li><span class="step-num">6</span><p>Record temperature rise until it stabilizes. Note maximum temperature.</p></li>
+          <li><span class="step-num">7</span><p>Calculate ΔT = T_max − T_initial</p></li>
+          <li><span class="step-num">8</span><p>Calculate heat released and calorific value.</p></li>
+        </ol>
+        <div class="formula-box" style="margin-top:12px">
+          <div class="formula-label">Your Notebook Results</div>
+          Max temp rise (ΔT) = 2.54°C<br>
+          Water Equivalent = 2378<br>
+          Mass of tablet = 1.000 gm<br>
+          CV = 6039.85 Cal/gm ≈ 25,282 kJ/kg
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">VIVA QUESTIONS & ANSWERS</div>
+        <ul class="viva-list">
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">Why is the bomb calorimeter called a "bomb"? <span class="icon">▼</span></div>
+            <div class="viva-a">Because the steel vessel (bomb) is sealed and can withstand very high pressures generated during combustion (pressures up to 1000 atm). The word "bomb" refers to the explosive-proof nature of the vessel. Combustion occurs at constant VOLUME (unlike a boiler which is constant pressure).</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is the difference between HCV and LCV (Gross and Net Calorific Value)? <span class="icon">▼</span></div>
+            <div class="viva-a">HCV (Higher Calorific Value / Gross CV): heat released when products are cooled to standard temp, so water in products CONDENSES — includes latent heat. LCV (Lower CV / Net CV): water remains as vapour — latent heat not recovered. LCV = HCV − (latent heat × mass of water formed). In engines, LCV is used as fuel does not allow condensation.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is the purpose of using benzoic acid as the standard? <span class="icon">▼</span></div>
+            <div class="viva-a">Benzoic acid has a precisely known, internationally certified calorific value (26,435 kJ/kg or 6318 cal/g). By burning it in the bomb, the actual heat capacity (water equivalent) of the calorimeter is determined. This calibration is then used to find the CV of the unknown sample.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is calorific value? Typical values for fuels? <span class="icon">▼</span></div>
+            <div class="viva-a">Calorific value = heat released per unit mass of fuel on complete combustion (kJ/kg or Cal/g). Typical: Coal: 25,000–35,000 kJ/kg. Petrol: ~44,000 kJ/kg. Diesel: ~44,800 kJ/kg. LPG: ~46,000 kJ/kg. Biogas: ~20,000–25,000 kJ/m³. Natural gas: ~38,000 kJ/m³.</div>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- EXP 13: TORREFACTION & PYROLYSIS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="exp-card col-bio" id="exp13">
+    <div class="exp-header" onclick="toggle('exp13')">
+      <span class="exp-num">EXP 13</span>
+      <span class="exp-title">Torrefaction &amp; Pyrolysis of Biomass</span>
+      <span class="exp-toggle" id="exp13-toggle">▼</span>
+    </div>
+    <div class="exp-body" id="exp13-body">
+
+      <div class="section">
+        <div class="section-title">INTRODUCTION</div>
+        <p>Torrefaction and Pyrolysis are <strong>thermochemical processes</strong> used to convert biomass into valuable energy products under controlled heating in the <strong>absence or limited presence of oxygen</strong>.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">TORREFACTION vs PYROLYSIS — Side by Side</div>
+        <table>
+          <tr><th>Parameter</th><th>Torrefaction</th><th>Pyrolysis</th></tr>
+          <tr><td>Temperature</td><td>200–300°C</td><td>300–700°C</td></tr>
+          <tr><td>Oxygen</td><td>Inert / O₂-free</td><td>Absence of O₂</td></tr>
+          <tr><td>Process type</td><td>Mild thermal treatment</td><td>Extensive thermal decomposition</td></tr>
+          <tr><td>Product (solid)</td><td>Torrefied biomass / bio-coal</td><td>Biochar</td></tr>
+          <tr><td>Other products</td><td>Volatiles + moisture removed</td><td>Bio-oil (liquid) + Syngas (gas)</td></tr>
+          <tr><td>Main goal</td><td>Improve fuel properties of biomass</td><td>Break down biomass into 3 fractions</td></tr>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">TORREFACTION — Key Details</div>
+        <ul class="bullet">
+          <li>Mild process: 200–300°C, O₂-free environment</li>
+          <li>Removes moisture and light volatile compounds</li>
+          <li>Product: dry, brittle, energy-dense solid called <strong>"torrefied biomass" or "bio-coal"</strong></li>
+          <li>Enhances: calorific value, grindability, hydrophobicity (water resistance)</li>
+          <li>Makes biomass suitable for storage, transport, and co-firing with coal in power plants</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">PYROLYSIS — Key Details</div>
+        <ul class="bullet">
+          <li>More extensive: 300–700°C, no oxygen</li>
+          <li>Unlike torrefaction, pyrolysis BREAKS DOWN biomass into THREE products</li>
+          <li><strong>Three products:</strong> (1) Solid = Biochar, (2) Liquid = Bio-oil, (3) Gas = Syngas/Syngas</li>
+          <li><strong>Slow pyrolysis:</strong> maximizes biochar production</li>
+          <li><strong>Fast pyrolysis:</strong> maximizes bio-oil yield (up to 75%)</li>
+          <li>Distribution of products depends on temperature, heating rate, and residence time</li>
+        </ul>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">💡 Summary for Both Processes</div>
+        <p>Both play a significant role in sustainable energy — enabling efficient utilization of biomass and reducing dependence on fossil fuels.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">VIVA QUESTIONS & ANSWERS</div>
+        <ul class="viva-list">
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is the difference between torrefaction and pyrolysis? <span class="icon">▼</span></div>
+            <div class="viva-a">Temperature: Torrefaction = 200–300°C (mild). Pyrolysis = 300–700°C (intensive). Products: Torrefaction gives ONE solid product (bio-coal). Pyrolysis gives THREE products: biochar (solid), bio-oil (liquid), syngas (gas). Both occur in absence of oxygen but pyrolysis decomposes biomass more completely.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is biochar and what are its uses? <span class="icon">▼</span></div>
+            <div class="viva-a">Biochar is the solid carbon-rich product of pyrolysis. Uses: (1) Soil amendment — improves water retention and nutrient availability, (2) Carbon sequestration — locks carbon in soil for long periods, (3) Energy source — has moderate calorific value, (4) Pollutant removal — activated biochar can adsorb heavy metals.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is the difference between slow and fast pyrolysis? <span class="icon">▼</span></div>
+            <div class="viva-a">Slow pyrolysis: low heating rate (1–10°C/min), long residence time → maximizes BIOCHAR yield (~35%). Fast pyrolysis: very high heating rate (1000°C/s), short residence time → maximizes BIO-OIL yield (~75%). Flash pyrolysis is even faster and gives higher bio-oil yield.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">Why is torrefied biomass better than raw biomass for co-firing? <span class="icon">▼</span></div>
+            <div class="viva-a">Torrefied biomass has: (1) Higher energy density (similar to lignite), (2) Lower moisture content — less energy wasted evaporating water, (3) Better grindability — can be pulverized like coal, (4) Hydrophobic — easier to store outdoors, (5) Higher calorific value per kg. All these properties make it compatible with existing coal handling infrastructure.</div>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- EXP 14: GASIFICATION -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="exp-card col-bio" id="exp14">
+    <div class="exp-header" onclick="toggle('exp14')">
+      <span class="exp-num">EXP 14</span>
+      <span class="exp-title">Gasification</span>
+      <span class="exp-toggle" id="exp14-toggle">▼</span>
+    </div>
+    <div class="exp-body" id="exp14-body">
+
+      <div class="section">
+        <div class="section-title">INTRODUCTION</div>
+        <p>Gasification is a <strong>thermochemical process</strong> that converts carbon-based materials (biomass, coal, waste) into a combustible gas mixture called <strong>Syngas (synthetic gas)</strong> by reacting at high temperatures (700–1200°C) with a controlled amount of oxygen, air, or steam.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">THE FOUR STAGES OF GASIFICATION</div>
+        <table>
+          <tr><th>Stage</th><th>Process</th><th>What happens</th></tr>
+          <tr><td>1. Drying</td><td>100–200°C</td><td>Moisture removed from biomass</td></tr>
+          <tr><td>2. Pyrolysis</td><td>200–500°C</td><td>Biomass decomposes into char, tar, and gases</td></tr>
+          <tr><td>3. Oxidation</td><td>&gt;700°C</td><td>Partial combustion provides heat for process: C + O₂ → CO₂, 2C + O₂ → 2CO</td></tr>
+          <tr><td>4. Reduction</td><td>700–1000°C</td><td>CO₂ + C → 2CO; H₂O + C → CO + H₂ (Syngas produced here)</td></tr>
+        </table>
+        <div class="mnemonic">
+          <div class="mn-label">🧠 Remember the 4 Stages</div>
+          <p><strong>"Dry Pizza Ooooh Reduce!" → D-P-O-R → Drying, Pyrolysis, Oxidation, Reduction</strong></p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">KEY ADVANTAGES OF GASIFICATION</div>
+        <ul class="bullet">
+          <li>Produces clean, combustible gas (Syngas: CO + H₂) for power generation and heating</li>
+          <li>Higher efficiency compared to direct combustion</li>
+          <li>Lower emissions and better environmental performance</li>
+          <li>Can use various feedstocks: biomass, municipal waste, coal</li>
+          <li>Reduces landfill waste — supports waste-to-energy systems</li>
+          <li>Important for sustainable and renewable energy applications</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">VIVA QUESTIONS & ANSWERS</div>
+        <ul class="viva-list">
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is gasification? How is it different from combustion? <span class="icon">▼</span></div>
+            <div class="viva-a">Gasification: Partial oxidation of biomass at high temperature to produce syngas (CO + H₂). Controlled oxygen supply (less than stoichiometric). Product is a combustible gas, not heat directly. Combustion: Complete oxidation, excess oxygen, product is CO₂ + H₂O + heat directly. Gasification produces a versatile fuel gas that can be used in engines, turbines, or further processed.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is syngas? What is it composed of? <span class="icon">▼</span></div>
+            <div class="viva-a">Syngas (synthesis gas or producer gas) mainly consists of: Carbon monoxide (CO) ~20–25%, Hydrogen (H₂) ~15–20%, Methane (CH₄) ~2–4%, CO₂ ~5–10%, N₂ (balance if air is used). Calorific value: ~4–6 MJ/m³ (much less than natural gas at 38 MJ/m³). Can be used in IC engines, gas turbines, or for chemical synthesis.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is the reduction zone and why is it important? <span class="icon">▼</span></div>
+            <div class="viva-a">The reduction zone (700–1000°C) is the most important stage where the actual syngas is produced. CO₂ and H₂O react with hot char: C + CO₂ → 2CO (Boudouard reaction) and C + H₂O → CO + H₂ (water-gas reaction). These endothermic reactions consume heat from the oxidation zone above.</div>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- EXP 15: BIOGAS PLANT -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="exp-card col-bio" id="exp15">
+    <div class="exp-header" onclick="toggle('exp15')">
+      <span class="exp-num">EXP 15</span>
+      <span class="exp-title">Biogas Plant</span>
+      <span class="exp-toggle" id="exp15-toggle">▼</span>
+    </div>
+    <div class="exp-body" id="exp15-body">
+
+      <div class="section">
+        <div class="section-title">INTRODUCTION</div>
+        <p>A biogas plant produces biogas through <strong>anaerobic digestion</strong> — a biological process carried out by microorganisms in the absence of oxygen. Feedstocks: animal dung, agricultural residues, kitchen waste.</p>
+        <br>
+        <p>It is an ecofriendly, renewable method of energy generation, widely used in rural and semi-urban areas.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">THE FOUR STAGES OF ANAEROBIC DIGESTION</div>
+        <table>
+          <tr><th>Stage</th><th>Process</th><th>What happens</th></tr>
+          <tr><td>1. Hydrolysis</td><td>1st stage</td><td>Complex organics (carbs, proteins, fats) broken into simple molecules (sugars, amino acids, fatty acids)</td></tr>
+          <tr><td>2. Acidogenesis</td><td>2nd stage</td><td>Simple molecules → volatile fatty acids + CO₂ + H₂</td></tr>
+          <tr><td>3. Acetogenesis</td><td>3rd stage</td><td>Fatty acids → acetic acid + CO₂ + H₂</td></tr>
+          <tr><td>4. Methanogenesis</td><td>4th stage</td><td>Acetic acid → CH₄ + CO₂ (BIOGAS PRODUCED)</td></tr>
+        </table>
+        <div class="mnemonic">
+          <div class="mn-label">🧠 Remember the 4 Stages</div>
+          <p><strong>"Happy Ants Approach Methane" → H-A-A-M → Hydrolysis, Acidogenesis, Acetogenesis, Methanogenesis</strong></p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">BIOGAS COMPOSITION</div>
+        <ul class="bullet">
+          <li><strong>Methane (CH₄):</strong> 55–70% — the combustible component</li>
+          <li><strong>CO₂:</strong> 30–45%</li>
+          <li>Small amounts of H₂S and other gases</li>
+          <li>Methane is responsible for energy generation</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">APPLICATIONS & ADVANTAGES</div>
+        <ul class="bullet">
+          <li>Cooking, lighting, electricity generation, heating</li>
+          <li>Waste management — reduces landfill</li>
+          <li>Reduces greenhouse gas emissions</li>
+          <li>Digestate (slurry) is a rich organic fertilizer</li>
+          <li>Cost-effective, easy to operate, suitable for rural households and farms</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">VIVA QUESTIONS & ANSWERS</div>
+        <ul class="viva-list">
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is anaerobic digestion? Why must it be in absence of oxygen? <span class="icon">▼</span></div>
+            <div class="viva-a">Anaerobic digestion is a biological process where microorganisms break down organic matter in the absence of oxygen, producing biogas (mainly CH₄). Oxygen is excluded because: (1) Methane-producing bacteria (methanogens) are strict anaerobes — oxygen kills them, (2) With oxygen, aerobic bacteria would dominate and produce CO₂ + water instead of methane.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What are the differences between biogas, syngas, and natural gas? <span class="icon">▼</span></div>
+            <div class="viva-a">Biogas: ~60% CH₄ + 40% CO₂, produced by anaerobic digestion of organic waste, low pressure, CV ≈ 20–25 MJ/m³. Syngas: CO + H₂ mixture, produced by gasification, CV ≈ 4–6 MJ/m³. Natural gas: 90%+ CH₄, fossil fuel, extracted from underground, CV ≈ 38 MJ/m³. Biogas is renewable; natural gas is not.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What factors affect biogas production? <span class="icon">▼</span></div>
+            <div class="viva-a">(1) Temperature: optimal 35–37°C (mesophilic) or 55°C (thermophilic). (2) pH: optimal 6.8–7.2. (3) C:N ratio: optimal 20–30:1. (4) Retention time: 20–30 days typically. (5) Mixing: regular stirring improves contact. (6) Absence of inhibitors: heavy metals, antibiotics, disinfectants can kill bacteria.</div>
+          </div>
+          <div class="viva-item" onclick="toggleViva(this)">
+            <div class="viva-q">What is the difference between a floating drum and fixed dome biogas plant? <span class="icon">▼</span></div>
+            <div class="viva-a">Floating drum (KVIC design): metal drum floats on slurry, moves up-down as gas accumulates, constant pressure, visible gas storage. Fixed dome (Deenbandhu design): fixed underground dome, variable pressure, no moving parts, more durable, cheaper, but pressure varies. Fixed dome is more common in India due to lower cost and maintenance.</div>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL EXAM TIPS -->
+  <div class="quick-ref" style="border-color: var(--accent4); margin-top:20px">
+    <h2 style="color:var(--accent4)">🎯 Last-Minute Exam Tips</h2>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:12px">
+      <div>
+        <p style="font-size:0.85rem; color:var(--accent3); font-weight:700; margin-bottom:8px">KEY FORMULAS CHEAT SHEET</p>
+        <p style="font-size:0.82rem">• BP = 2πNT/60000 kW<br>• BTE = BP/(FC×Cv)×100 %<br>• BSFC = FC×3600/BP kg/kWh<br>• Angle = Distance×360/Circumference<br>• Viscosity = 0.24t − 50/t (Redwood)<br>• Carbon Residue = (A/W)×100 %<br>• CR = Total Vol / Clearance Vol<br>• IP_n = BP − BP_n (Morse Test)</p>
+      </div>
+      <div>
+        <p style="font-size:0.85rem; color:var(--accent3); font-weight:700; margin-bottom:8px">PROPERTY RELATIONSHIPS</p>
+        <p style="font-size:0.82rem">• Temperature ↑ → Viscosity ↓ (liquids)<br>• CR ↑ → Thermal Efficiency ↑<br>• Load ↑ → BTE ↑ then levels off<br>• Load ↑ → BSFC ↓ then ↑<br>• Cloud Point &gt; Pour Point<br>• Flash Point &lt; Fire Point<br>• Slow Pyrolysis → More Biochar<br>• Fast Pyrolysis → More Bio-oil</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggle(id) {
+  const body = document.getElementById(id + '-body');
+  const tog = document.getElementById(id + '-toggle');
+  if (body.classList.contains('open')) {
+    body.classList.remove('open');
+    tog.classList.remove('open');
+  } else {
+    body.classList.add('open');
+    tog.classList.add('open');
+  }
+}
+
+function toggleViva(el) {
+  const a = el.querySelector('.viva-a');
+  const icon = el.querySelector('.icon');
+  if (a.classList.contains('open')) {
+    a.classList.remove('open');
+    icon.classList.remove('open');
+  } else {
+    a.classList.add('open');
+    icon.classList.add('open');
+  }
+}
+
+function jumpTo(id) {
+  const el = document.getElementById(id);
+  // Open the card
+  const body = document.getElementById(id + '-body');
+  const tog = document.getElementById(id + '-toggle');
+  if (!body.classList.contains('open')) {
+    body.classList.add('open');
+    tog.classList.add('open');
+  }
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Open first experiment by default
+window.onload = function() { toggle('exp1'); }
+</script>
+</body>
+</html>
